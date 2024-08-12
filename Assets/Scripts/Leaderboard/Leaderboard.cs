@@ -22,10 +22,11 @@ public class LeaderBoard
                 leaderBoardId = table
             };
             string jsonPayload = JsonUtility.ToJson(tableID);
-
+        
             // Call the custom RPC
-            var response = await nakma.client.RpcAsync(nakma.UserSession, "getleaderboardrpc", jsonPayload);
+            var response = await nakma.client.RpcAsync(nakma.UserSession, AllConstant.getleaderboardrpc, jsonPayload);
             RootResponseLeaderboard RObj = JsonParser.FromJson<RootResponseLeaderboard>(response.Payload);
+         
             return RObj;
         }
         catch (Exception e)

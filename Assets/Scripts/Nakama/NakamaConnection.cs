@@ -9,13 +9,11 @@ using Nakama;
 
 public class NakamaConnection : MonoBehaviour
 {
-    public static string host = "13.60.75.218";
-    public static string type = "http";
-    public static int port = 7350;
-    public static string serverKey = "defaultkey";
+   
 
     public IClient client;
     public ISession UserSession;
+    public ISocket socket;
 
     private static NakamaConnection instance;
     //Singleton
@@ -36,7 +34,13 @@ public class NakamaConnection : MonoBehaviour
             return instance;
         }
     }
-
+    public async Task CreateSocket()
+    {
+        socket = instance.client.NewSocket();
+        bool appearOnline = true;
+        int connectionTimeout = 30;
+        await socket.ConnectAsync(UserSession, appearOnline, connectionTimeout);
+    }
 
     // Awake ????
     private void Awake()
@@ -55,8 +59,8 @@ public class NakamaConnection : MonoBehaviour
     private void Start()
     {
         try
-        {
-            client = new Client(type, host, port, serverKey);
+        {  
+            client = new Client(AllConstant.type, AllConstant.host, AllConstant.port, AllConstant.serverKey);
         }
         catch (Exception E)
         {

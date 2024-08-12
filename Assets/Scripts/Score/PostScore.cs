@@ -27,7 +27,7 @@ public class PostScore
             string jsonPayload = data.ToJson();
 
 
-            var res = await NakamaConnection.Instance.client.RpcAsync(NakamaConnection.Instance.UserSession, "matchendrpc", jsonPayload);
+            var res = await NakamaConnection.Instance.client.RpcAsync(NakamaConnection.Instance.UserSession, AllConstant.postleaderboardrpc, jsonPayload);
             RootScoreResponse RObj = JsonParser.FromJson<RootScoreResponse>(res.Payload);
 
             return RObj;

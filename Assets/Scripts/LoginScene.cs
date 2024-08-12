@@ -11,12 +11,12 @@ public class LoginScene : MonoBehaviour
     public GameObject errorPanel; // Panel for error state
 
     private NakamaConnection nakma;
-
   
     void Start()
     {
         SetPanelActive(loginPanel, true); 
         nakma = NakamaConnection.Instance;
+     
     }
 
     //Function to active panels
@@ -27,15 +27,6 @@ public class LoginScene : MonoBehaviour
             panel.SetActive(isActive);
         }
     }
-
-    public void ShowError()
-    {
-
-        SetPanelActive(errorPanel, false);
-        SetPanelActive(loginPanel, true);
-        SetPanelActive(loadingPanel, false);
-    }
-
     // Login Button OnClick Handler
     public async void Login()
     {
@@ -51,14 +42,14 @@ public class LoginScene : MonoBehaviour
         }
         catch (Exception e)
         {
-            
-            SetPanelActive(errorPanel, true);
             SetPanelActive(loadingPanel, false);
             SetPanelActive(loginPanel, false);
+            SetPanelActive(errorPanel, true);
 
             Debug.Log("Exception in Login Button: " + e.Message);
         }
     }
+
 
     void Update()
     {

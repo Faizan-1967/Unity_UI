@@ -8,9 +8,10 @@ using UnityEngine.SceneManagement;
 public class Authentication
 {
     public NakamaConnection instance;
-    public Authentication(NakamaConnection obj)
+ 
+    public Authentication(NakamaConnection authObj)
     {
-        this.instance = obj;
+        this.instance = authObj;
     }
 
    public async Task AuthenticateClient()
@@ -19,12 +20,11 @@ public class Authentication
         {
             // Authentication logic
             instance.UserSession = await instance.client.AuthenticateDeviceAsync(SystemInfo.deviceUniqueIdentifier);
-            //If Authenticated 
+            await instance.CreateSocket();
             SceneManager.LoadScene("Home");
         }
         catch(Exception E)
         {
-            SceneManager.LoadScene("Login");
             throw E;
 
         }      
